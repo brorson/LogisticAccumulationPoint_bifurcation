@@ -15,7 +15,7 @@ x2 = lam * x1 * (1-x1)
 x3 = lam * x2 * (1-x2)
 ...
 x1 = lam * xn * (1-xn)
-lam^n * (1-2*x1) * (1-2*x2) * .... * (1-2*xn) = -1
+lam^n * (1-2 * x1) * (1-2 * x2) * .... * (1-2 * xn) = -1
 
 where n=2, 4, 8, 16, etc is the number of fixed points.  The first n
 equations are found by simply unrolling the logistic map iteration,

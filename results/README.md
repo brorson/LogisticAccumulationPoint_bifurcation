@@ -8,12 +8,14 @@ computes the accumulation point as follows:
 1.  Using a starting point in the period 4 window, the right side of
 the window (i.e. the 4 -> 8 bifurcation point) is computed using
 Newton's method.  The system to be solved in covered in 
-["Computing the bifurcation points and superstable orbits of the logistic map", 
-I. S. Kotsireas1 and K. Karamanos2](https://carma.newcastle.edu.au/resources/jon/Preprints/Books/EMA/Exercises/For%20others/dhb-logistics%20B5.pdf)
-specifically eqs (10) and (11).  Solving this system gives
-the value of lambda_4, which is dumped into a file.
+["Computing the bifurcation points and superstable orbits of 
+the logistic map"], 
+by I. S. Kotsireas and K. Karamanos 
+(https://carma.newcastle.edu.au/resources/jon/Preprints/Books/EMA/Exercises/For%20others/dhb-logistics%20B5.pdf), 
+specifically eqs (10) and (11).  Solving this system gives the 
+value of lambda_4, which is dumped into a file.
 
-Note that eq (11) implies two possible values for lambda, one on the
+> Note that eq (11) implies two possible values for lambda, one on the
 right and one on the left of the window depending whether one takes +1
 or -1 as the RHS.  This work attempts to solve for the right hand
 side of the window, so this equation is modified appropriately.

@@ -1,4 +1,5 @@
-=== What is this?
+What is this?
+=============
 
 This is a high-precision computation of the accumulation point,
 lambda_inf, of the period 2^N cycles of the logistic map.  Basic info
@@ -10,11 +11,11 @@ This computation finds lambda_inf by computing the bifurcation point
 for increasing values of n.  It finds the lambda_n by solving the
 nonlinear system, 
 
-x2 = lam*x1*(1-x1)
-x3 = lam*x2*(1-x2)
+x2 = lam * x1 * (1-x1)
+x3 = lam * x2 * (1-x2)
 ...
-x1 = lam*xn*(1-xn)
-lam^n*(1-2*x1)*(1-2*x2)*....*(1-2*xn) = -1
+x1 = lam * xn * (1-xn)
+lam^n * (1-2*x1) * (1-2*x2) * .... * (1-2*xn) = -1
 
 where n=2, 4, 8, 16, etc is the number of fixed points.  The first n
 equations are found by simply unrolling the logistic map iteration,
@@ -47,14 +48,15 @@ sequence acceleration to squeeze more digits out of the estimated
 value of lambda_inf.  More information about that procedure is given
 in the results directory.
 
-=== Instructions 
+Instructions
+============
 
 The code is written in easy C++.  If you want to repeat these
 computations, you need to download and install the following libraries
 (and their dependencies): 
 
-MPFR++: http://www.holoborodko.com/pavel/mpfr/
-Eigen:  http://eigen.tuxfamily.org/index.php?title=Main_Page
+* MPFR++: http://www.holoborodko.com/pavel/mpfr/
+* Eigen:  http://eigen.tuxfamily.org/index.php?title=Main_Page
 
 Place both libraries into the main directory as sub-directories.  Then
 do "make" and if all goes well you should have an executable called
@@ -62,6 +64,7 @@ bifurcation_calc which you can play with.  If you manage to compute
 lambda_n values for n > 2^17, please drop me a line and tell me how
 you did it.
 
+---
 Stuart Brorson
 6.17.2020
 

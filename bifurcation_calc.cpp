@@ -4,9 +4,9 @@
 #include "J.h"
 
 
-#define PREC 200
+#define PREC 400
 
-mpreal tol = 1e-50;
+mpreal tol = 1e-100;
 
 void bifurcation_calc(int, mpreal&, mpreal&);
 
@@ -27,11 +27,22 @@ int main(int argc, char* argv[])
   x0 = 8.0e-01;
   lam = 3.4;
 
-  FILE *outfile;
-  outfile = fopen("results.txt", "w"); 
 
-  fprintf(outfile, "PREC = %d, tol = %e\n", PREC, tol);
-  // outfile << "PREC = " << PREC << ", tol = " << tol << "\n";
+  // Open output file.  Give it name related to requested PREC.
+  string filenamebase = "results_bifurcation_prec";
+  int iprec = PREC;
+  string sprec= to_string(iprec);
+  string filename = filenamebase + sprec + ".txt";
+  cout << "Opening filename = " << filename << endl;
+  std::ofstream outfile;
+  outfile.open (filename.c_str(), std::ofstream::out);
+
+  // Set precision for mpfr output.  Divide by 3 since PREC is in bits
+  // but I want decimal digits.
+  outfile.precision(PREC/3);
+  
+  outfile << "PREC = " << PREC << ", tol = " << tol << "\n";
+
   
   // This just loops through each bifurcation point.
   for (int i=0; i<21; i++) {
@@ -41,15 +52,15 @@ int main(int argc, char* argv[])
     bifurcation_calc(R, lam, x0);
     mpfr_printf ("Computed order = %d, lam = %10Re, x0 = %10Rf \n", ord, lam, x0);
 
-    mpfr_fprintf(outfile, "order = %d, lambda = %10Re \n", ord, lam);
-    fflush(outfile);
+    outfile << "order = " << ord << ", lambda = " << lam << endl;
+    outfile.flush();
     
     // Go to next bifurcation order
     ord = 2*ord;
   }
 
   // All done.
-  fclose(outfile);
+  outfile.close();
   
 }
 
@@ -87,12 +98,15 @@ void bifurcation_calc(int R, mpreal& lam, mpreal& x0) {
     xn(i) = x0;
   }
   xn(R-1) = lam;
+
   
+// Turn this on for debugging only.  Currently is broken. 
+#if 0
   // Now compute the difference between elements in this vector
   // and print out the smallest difference
   // Must do this operation on a copy
   Matrix<mpreal, Dynamic, 1> x1(R,1);
-  std::copy(xn.begin(), xn.end()-1, x1.begin());
+  std::copy(xn.begin(), xn.end()-1, std::begin(x1));
   std::sort(x1.begin(), x1.end());
   // Just do diff in place to save memory
   for (i=0; i<R-1; i++) {
@@ -105,7 +119,7 @@ void bifurcation_calc(int R, mpreal& lam, mpreal& x0) {
     }
   }
   mpfr_printf("Minimum difference between zeros = %10Re \n", diff);  
-  
+#endif
   
   
   //--------------------------------------
